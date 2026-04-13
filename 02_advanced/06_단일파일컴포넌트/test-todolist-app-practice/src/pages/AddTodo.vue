@@ -33,7 +33,11 @@
           추가
         </button>
         <!-- 취소 버튼 클릭 시 목록으로 이동 -->
-        <button type="button" class="btn btn-primary m-1" @click="">
+        <button
+          type="button"
+          class="btn btn-primary m-1"
+          @click="router.push('/todos')"
+        >
           취소
         </button>
       </div>
@@ -53,6 +57,7 @@ const addTodoHandler = () => {
     return;
   }
   // 추가하기
+  addTodo({ ...todoItem });
   // 목록으로
   router.push('/todos');
 };

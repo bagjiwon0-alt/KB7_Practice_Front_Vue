@@ -53,12 +53,14 @@ import { useRouter, useRoute } from 'vue-router';
 const todoList = inject('todoList'); // 부모의 원본 데이터
 const { updateTodo } = inject('actions');
 const router = useRouter();
+const currentRoute = useRoute();
 // 수정할 todo 찾기
-const matchedTodoItem = todoList.value.find(() => {
-  return;
+const matchedTodoItem = todoList.value.find((item) => {
+  return item.id == currentRoute.params.id;
 });
 if (!matchedTodoItem) {
   // 목록으로 이동
+  router.push('/todos');
 }
 // 부모 데이터를 복사해서 만든 복사본
 const todoItem = reactive({ ...matchedTodoItem });
@@ -69,7 +71,8 @@ const updateTodoHandler = () => {
     return;
   }
   // todoList 수정하기
-  updateTodo();
+  updateTodo({ ...todoItem });
   // 목록으로 이동
+  router.push('/todos');
 };
 </script>
